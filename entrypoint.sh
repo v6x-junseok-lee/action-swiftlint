@@ -19,8 +19,8 @@ function convertToGitHubActionsLoggingCommands() {
 
 function diffLines() {
 	git diff --name-only --relative HEAD $(git merge-base FETCH_HEAD $DIFF_BASE) -- '*.swift' | while read file; do
-		git diff -U0 HEAD $(git merge-base FETCH_HEAD $DIFF_BASE) -- "$file" | sed -n '/^@@ -[0-9]*/{s/@@ -\([0-9]*\).*/\1/;p;}' | while read start_line; do
-			git blame -L $start_line,+1 HEAD~1 -- "$file" | sed -n "s|[^)]* ([^)]* \([0-9]*\)).*|$PWD/$file:\1|p"
+		git diff -U0 HEAD $(git merge-base HEAD $DIFF_BASE) -- "$file" | sed -n '/^@@ -[0-9]*/{s/@@ -\([0-9]*\).*/\1/;p;}' | while read start_line; do
+			git blame -L $start_line,+1 -- "$file" | sed -n "s|[^)]* ([^)]* \([0-9]*\)).*|$PWD/$file:\1|p"
 		done
 	done
 }

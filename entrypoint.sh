@@ -41,4 +41,4 @@ then
 	fi
 fi
 
-set -o pipefail && swiftlint "$@" -- $changedFiles | grep -Ff <(diffLines) | stripPWD | convertToGitHubActionsLoggingCommands
+set -o pipefail && swiftlint lint "$@" -- $changedFiles | grep -Ff <(diffLines) | stripPWD | convertToGitHubActionsLoggingCommands
